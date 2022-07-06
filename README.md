@@ -266,7 +266,8 @@ Ao iniciar este projeto, você concorda com as diretrizes do Código de Conduta 
   - `src/server.example.ts`
 
   ⚠️**Importante**: é muito importante que o arquivo `server.example.ts` seja renomeado para `server.ts` para que os testes funcionem. ⚠️**
-
+   
+  ⚠️**Importante**: Os testes do projeto DEVEM ser unitários ⚠️**
 </details>
 
 <details>
