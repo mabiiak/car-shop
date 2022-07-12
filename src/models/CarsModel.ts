@@ -1,35 +1,23 @@
-import { model as mongoModel } from 'mongoose';
-import { Car, SchemaCar } from '../interfaces/CarInterface';
-import { Model } from '../interfaces/ModelInterface';
+import { model as mongoModel, Document, Schema } from 'mongoose';
+import { Car } from '../interfaces/CarInterface';
+import GenericModel from './GenericModel';
 
-export default abstract class CarsModel implements Model<Car> {
-  constructor(private carModel = mongoModel<Car>('Car', SchemaCar)) {}
+interface CarDocument extends Car, Document { }
 
-  async create(obj: Car): Promise<Car> {
-    const createItem = await this.carModel.create(obj);
-    return createItem;
-  }
+export const carsSchema = new Schema<CarDocument>({
+  model: { type: String, required: true },
+  year: { type: Number, required: true },
+  color: { type: String, required: true },
+  status: Boolean,
+  buyValue: { type: Number, required: true },
+  doorsQty: { type: Number, required: true },
+  seatsQty: { type: Number, required: true },
+});
 
-  async read(): Promise<Car[]> {
-    const allCars = await this.carModel.find();
-    return allCars;
-  }
-
-  async readOne(item: string): Promise<Car | null> {
-    const findItem = await this.carModel.findById({ _id: item });
-    return findItem;
-  }
-
-  async update(item: string, obj: Car): Promise<Car | null> {
-    const updateItem = await this.carModel.findOneAndUpdate(
-      { _id: item },
-      { ...obj },
-    );
-    return updateItem;
-  }
-
-  async delete(item: string): Promise<Car | null> {
-    const deleteItem = await this.carModel.findOneAndDelete({ _id: item });
-    return deleteItem;
+class CarsModel extends GenericModel<Car> {
+  constructor(carModel = mongoModel('Cars', carsSchema)) {
+    super(carModel);
   }
 }
+
+export default CarsModel;
