@@ -10,7 +10,7 @@ const carsSchema = new Schema<Car>({
   buyValue: Number,
   doorsQty: Number,
   seatsQty: Number,
-});
+}, { versionKey: false });
 
 const carMongooseModel = model('car', carsSchema);
 
