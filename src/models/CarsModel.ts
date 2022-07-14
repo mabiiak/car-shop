@@ -1,22 +1,22 @@
-import { model as createModel, Document, Schema } from 'mongoose';
+import { Model, model, Schema } from 'mongoose';
 import { Car } from '../interfaces/CarInterface';
-import GenericModel from './GenericModel';
+import MongoModel from './MongoModel';
 
-interface CarDocument extends Car, Document { }
-
-export const carsSchema = new Schema<CarDocument>({
-  model: { type: String, required: true },
-  year: { type: Number, required: true },
-  color: { type: String, required: true },
+const carsSchema = new Schema<Car>({
+  model: String,
+  year: Number,
+  color: String,
   status: Boolean,
-  buyValue: { type: Number, required: true },
-  doorsQty: { type: Number, required: true },
-  seatsQty: { type: Number, required: true },
+  buyValue: Number,
+  doorsQty: Number,
+  seatsQty: Number,
 });
 
-class CarsModel extends GenericModel<Car> {
-  constructor(carModel = createModel('Cars', carsSchema)) {
-    super(carModel);
+const carMongooseModel = model('car', carsSchema);
+
+class CarsModel extends MongoModel<Car> {
+  constructor(mongooseModel: Model<Car> = carMongooseModel) {
+    super(mongooseModel);
   }
 }
 
