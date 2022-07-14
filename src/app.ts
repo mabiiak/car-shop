@@ -1,4 +1,4 @@
-import express, { Router } from 'express';
+import express from 'express';
 import connectToDatabase from './connection';
 
 class App {
@@ -17,8 +17,10 @@ class App {
     );
   }
 
-  public addRouter(router: Router) {
-    this.app.use(router);
+  public addMiddleware(
+    middle: express.Router | express.ErrorRequestHandler | express.NextFunction,
+  ) {
+    this.app.use(middle);
   }
 
   public getApp() {

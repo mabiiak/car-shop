@@ -1,17 +1,10 @@
-// import CustomRouter from './routes/Router';
-// import App from './app';
+import App from './app';
+import carRouter from './routes/Router';
+import errorMiddleware from './middlewares/errorMiddleware';
 
-// import exampleController from './controllers/controller-example';
+const server = new App();
 
-// import { example } from './interfaces/ExampleInterface';
+server.addMiddleware(carRouter);
+server.addMiddleware(errorMiddleware);
 
-// const server = new App();
-
-// const exampleController = new exampleController();
-
-// const exampleRouter = new CustomRouter<Car>();
-// exampleRouter.addRoute(exampleController);
-
-// server.addRouter(exampleRouter.router);
-
-// export default server;
+export default server;
