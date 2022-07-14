@@ -11,7 +11,7 @@ class CarsService implements ServiceInterface {
   }
   
   async create(obj: Car): Promise<Car> {
-    SchemaCar.safeParse(obj);
+    SchemaCar.parse(obj);
     const carCreated = await this._carsModel.create(obj);
     return carCreated;
   }
@@ -26,16 +26,15 @@ class CarsService implements ServiceInterface {
     return oneCar;
   }
 
-  async update(id: string, obj: Car): Promise<Car
-  | null> {
-    SchemaCar.safeParse(obj);
+  async update(id: string, obj: Car): Promise<Car | null> {
+    SchemaCar.parse(obj);
 
     const itemUpdated = await this._carsModel.update(id, obj);
     return itemUpdated;
   }
 
-  async delete(id: string): Promise<void> {
-    await this._carsModel.delete(id);
+  async delete(id: string): Promise<number | null> {
+    return this._carsModel.delete(id);
   }
 }
 
