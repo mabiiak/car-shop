@@ -91,19 +91,18 @@ describe('Controller', () => {
       const controller = new MotorcyclesController(ServiceMock);
 
       reqMock.body = motorMock;
-      reqMock.params = { idMock };
+      reqMock.params = { id: idMock };
 
       await controller.update(reqMock, resMock, NextMock);
 
-      expect((resMock.status as Sinon.SinonStub).calledWith(200));
+      expect((resMock.status as Sinon.SinonStub).calledWith(200)).to.be.true;
     });
 
     it('6 - Id invalido', async () => {
       const controller = new MotorcyclesController(ServiceMock);
 
       reqMock.body = motorMock;
-      // reqMock.params = { invalidLengthIdMock };
-      reqMock.params = {};
+      reqMock.params = { id: invalidLengthIdMock };
 
       await controller.update(reqMock, resMock, NextMock);
 
