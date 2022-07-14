@@ -1,12 +1,12 @@
 import { z } from 'zod';
-import { Vehicle } from './VehicleInterface';
+import { SchemaVehicle } from './VehicleInterface';
 
-const SchemaCar = z.object({
-  doorsQty: z.number().int().min(2).max(4),
-  seatsQty: z.number().int().min(2).max(7),
+const SchemaCar = SchemaVehicle.extend({
+  doorsQty: z.number().int().gte(2).lte(4),
+  seatsQty: z.number().int().gte(2).lte(7),
 });
 
-type Car = z.infer<typeof SchemaCar> & Vehicle;
+type Car = z.infer<typeof SchemaCar>;
 
 // Referencia: https://github.com/colinhacks/zod#extend
 
