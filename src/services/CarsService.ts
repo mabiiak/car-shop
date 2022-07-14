@@ -1,36 +1,42 @@
 import CarsModel from '../models/CarsModel';
-import Service, { ServiceError } from '.';
+import { Model } from '../interfaces/ModelInterface';
 import { Car, SchemaCar } from '../interfaces/CarInterface';
+import ServiceInterface from '../interfaces/ServiceInterface';
 
-class CarsService extends Service<Car> {
-  constructor(model = new CarsModel()) {
-    super(model);
+class CarsService implements ServiceInterface {
+  private _carsModel: Model<Car>;
+
+  constructor(carsModel: Model<Car> = new CarsModel()) {
+    this._carsModel = carsModel;
   }
   
-  create = async (obj: Car): Promise<Car | ServiceError | null> => {
-    const parsed = SchemaCar.safeParse(obj);
-    if (!parsed.success) {
-      return { error: parsed.error };
-    }
-    return this.model.create(obj);
-  };
+  async create(obj: Car): Promise<Car> {
+    SchemaCar.safeParse(obj);
+    const carCreated = await this._carsModel.create(obj);
+    return carCreated;
+  }
 
-  read = async (): Promise<Car[]> => this.model.read();
+  async read(): Promise<Car[]> {
+    const carsList = await this._carsModel.read();
+    return carsList;
+  }
 
-  readOne = async (id: string): Promise<Car | null | ServiceError> =>
-    this.model.readOne(id);
+  async readOne(id: string): Promise<Car | null> {
+    const oneCar = this._carsModel.readOne(id);
+    return oneCar;
+  }
 
-  updateById = async (id: string, obj: Car): Promise<Car
-  | ServiceError | null> => {
-    const parsed = SchemaCar.safeParse(obj);
-    if (!parsed.success) {
-      return { error: parsed.error };
-    }
-    return this.model.update(id, obj);
-  };
+  async update(id: string, obj: Car): Promise<Car
+  | null> {
+    SchemaCar.safeParse(obj);
 
-  delete = async (id: string): Promise<Car | null | ServiceError> =>
-    this.model.delete(id);
+    const itemUpdated = await this._carsModel.update(id, obj);
+    return itemUpdated;
+  }
+
+  async delete(id: string): Promise<void> {
+    await this._carsModel.delete(id);
+  }
 }
 
 export default CarsService;
