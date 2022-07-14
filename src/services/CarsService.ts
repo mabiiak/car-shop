@@ -3,7 +3,7 @@ import { Model } from '../interfaces/ModelInterface';
 import { Car, SchemaCar } from '../interfaces/CarInterface';
 import ServiceInterface from '../interfaces/ServiceInterface';
 
-class CarsService implements ServiceInterface {
+class CarsService implements ServiceInterface<Car> {
   private _carsModel: Model<Car>;
 
   constructor(carsModel: Model<Car> = new CarsModel()) {

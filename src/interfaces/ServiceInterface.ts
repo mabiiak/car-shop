@@ -1,9 +1,7 @@
-import { Car } from './CarInterface';
-
-export default interface ServiceInterface {
-  create(user: Car): Promise<Car>;
-  read(): Promise<Car[]>;
-  readOne(id: string): Promise<Car | null>;
-  update(id: string, Car: Car): Promise<Car | null>
-  delete(id: string): Promise<Car | null>;
+export default interface ServiceInterface<T> {
+  create(user: T): Promise<T>;
+  read(): Promise<T[]>;
+  readOne(id: string): Promise<T | null>;
+  update(id: string, T: T): Promise<T | null>
+  delete(id: string): Promise<T | null>;
 }
