@@ -34,7 +34,7 @@ const ServiceMock = {
   readOne: readOneMock,
   delete: deleteMock,
   update: updateMock,
-} as unknown as ServiceInterface;
+} as unknown as ServiceInterface<Car>;
 
 describe('Controller', () => {
   before(async () => {
