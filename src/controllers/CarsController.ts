@@ -2,15 +2,16 @@ import { Request, Response, NextFunction } from 'express';
 import CarsService from '../services/CarsService';
 import ControllerInterface from '../interfaces/ControllerInterface';
 import ServiceInterface from '../interfaces/ServiceInterface';
+import { Car } from '../interfaces/CarInterface';
 
 class CarsController implements ControllerInterface {
-  private _carService: ServiceInterface;
+  private _carService: ServiceInterface<Car>;
 
   errorNotFount: string;
 
   errorLength: string;
 
-  constructor(carService: ServiceInterface = new CarsService()) {
+  constructor(carService: ServiceInterface<Car> = new CarsService()) {
     this._carService = carService;
     this.errorNotFount = 'Object not found';
     this.errorLength = 'Id must have 24 hexadecimal characters';
