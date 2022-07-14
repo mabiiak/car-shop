@@ -12,7 +12,7 @@ const carsSchema = new Schema<Car>({
   seatsQty: Number,
 }, { versionKey: false });
 
-const carMongooseModel = model('car', carsSchema);
+export const carMongooseModel = model('car', carsSchema);
 
 class CarsModel extends MongoModel<Car> {
   constructor(mongooseModel: Model<Car> = carMongooseModel) {
