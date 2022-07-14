@@ -33,7 +33,7 @@ class CarsService implements ServiceInterface {
     return itemUpdated;
   }
 
-  async delete(id: string): Promise<number | null> {
+  async delete(id: string): Promise<Car | null> {
     return this._carsModel.delete(id);
   }
 }
